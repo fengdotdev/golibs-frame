@@ -25,11 +25,43 @@ func GetMarker() string {
 	return marker
 }
 
+// search for marker and Header in the data, and reemplace with
+func Escaper(in []byte, search string, replace string) []byte {
+	if len(search) == 0 || len(replace) == 0 {
+		return in // No replacement needed
+	}
 
-// search for marker and Header in the data, and reemplace with 
-func Escaper(in []byte) []byte {
-	
+	out := make([]byte, 0, len(in))
+	for i := 0; i < len(in); i++ {
+		if i+len(search) <= len(in) && string(in[i:i+len(search)]) == search {
+			out = append(out, []byte(replace)...)
+			i += len(search) - 1 // Skip the length of the search string
+		} else {
+			out = append(out, in[i])
+		}
+	}
+	return out
 }
+func EscaperReverse(in []byte, search string, replace string) []byte {
+	if len(search) == 0 || len(replace) == 0 {
+		return in // No replacement needed
+	}
+
+	out := make([]byte, 0, len(in))
+	for i := 0; i < len(in); i++ {
+		if i+len(replace) <= len(in) && string(in[i:i+len(replace)]) == replace {
+			out = append(out, []byte(search)...)
+			i += len(replace) - 1 // Skip the length of the replace string
+		} else {
+			out = append(out, in[i])
+		}
+	}
+	return out
+}
+
+
+
+
 
 func NewEncodeObj(header string, version uint8, data []byte) (*EncodeObj, error) {
 	if len(header) != 10 {
