@@ -1,9 +1,7 @@
 package goframe
 
-import "github.com/fengdotdev/golibs-frame/sandbox/draft1/gom8bit"
+import (
+	"github.com/fengdotdev/golibs-frame/sandbox/draft1/dots/rgbadot"
+)
 
-type GoM8Bit = gom8bit.GoM8Bit // Alias for GoM8Bit type
-
-func NewGoM8Bit(x, y uint) GoM8Bit {
-	return gom8bit.New(x, y)
-}
+type RGBADot8 = rgbadot.RGBADot8Bit
